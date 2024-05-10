@@ -1,0 +1,28 @@
+ {"shopsdata" :[
+    {
+    "id": 1,
+    "name": "Bg2",
+    "description": "NEW COLLECTION ALWAYS in STYLE",
+    "displayName": "Bg2",
+    "imgUrl": "https://vivomall-3f02390eda90.herokuapp.com/image/shop/agent_jack_s_bar.jpg",
+    "imgType": "bg",
+    "imgSubType": null,
+    "activeStatusKey": 1,
+    "updateTimestamp": "2024-02-25T11:07:03.906+00:00",
+    "createTimestamp": "2024-02-25T11:07:03.906+00:00",
+    "linked": false
+    },
+    {
+    "id": 2,
+    "name": "Bg1",
+    "description": "Season Sale UP TO 70% OFF",
+    "displayName": "Bg1",
+    "imgUrl": "/image/web-image/bg1.jpg",
+    "imgType": "bg",
+    "imgSubType": null,
+    "activeStatusKey": 1,
+    "updateTimestamp": "2024-02-25T11:06:26.054+00:00",
+    "createTimestamp": "2024-02-25T11:06:26.054+00:00",
+    "linked": false
+    }]
+}
