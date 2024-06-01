@@ -2,12 +2,14 @@ import React from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import "./ImageZoomInOut.css";
+import Box from "@mui/material/Box";
 
 import {
   TransformWrapper,
   TransformComponent,
   useControls,
 } from "react-zoom-pan-pinch";
+import { borderRadius } from "@mui/system";
 
 function ImageZoomT1(props) {
   const Controls = () => {
@@ -15,14 +17,15 @@ function ImageZoomT1(props) {
     return (
       <div>
         <div
-          className="btn-container"
           style={{
             position: "absolute",
-            bottom: 0,
+
+            top: 0,
             right: 0,
             display: "flex",
-            flexDirection: "column",
+            flexDirection: "row",
             zIndex: 1000, // Ensure high z-index
+            background: "transparent",
           }}
         >
           <button className="zoom-btn" onClick={() => zoomIn()}>
@@ -39,62 +42,32 @@ function ImageZoomT1(props) {
 
   return (
     <TransformWrapper>
-      <Controls /> {/* Move Controls outside of TransformComponent */}
-      <TransformComponent>
-        <div
-          style={{
-            position: "relative",
-            border: "5px solid white",
-            borderRadius: "30px",
-          }}
-        >
+      <div
+        style={{
+          position: "relative", // Ensure this container is relatively positioned
+          border: "5px solid white",
+
+          overflow: "hidden",
+        }}
+      >
+        <Controls />
+        <TransformComponent>
           <img
-            className="mob-map-image"
+            style={{
+              width: "40%",
+              height: "80vh",
+
+              borderRadius: "30px",
+            }}
             src={props.src}
-            alt="test"
-            width="100%"
             draggable={false}
           />
-        </div>
-      </TransformComponent>
+        </TransformComponent>
+      </div>
+
+      {/* Move Controls outside of TransformComponent */}
     </TransformWrapper>
   );
 }
 
 export default ImageZoomT1;
-
-//  <div
-// style={{
-//   backgroundColor: "#ffffff",
-//   borderRadius: "10px",
-//   position: "relative",
-//   overflow: "hidden",
-//  }}  >
-// <div className="btn-container">
-//   <button className="zoom" onClick={handleZoomIn}>
-//     <span>
-//       <AddIcon />
-//     </span>
-//   </button>
-//   <button className="zoom" onClick={handleZoomOut}>
-//     <span>
-//       <RemoveIcon />
-//     </span>
-//   </button>
-// </div>
-// <img
-//   className="mob-map-image"
-//   ref={imageRef}
-//   src={imageUrl}
-//   alt=""
-//   style={{
-//     width: "50vw",
-//     height: "auto",
-//     cursor: "move",
-//     background: "rgba(0, 0, 0, 0.9)",
-//     transform: `scale(${scale}) translate(${position.x}px,${position.y}px)`,
-//     transition: "transform 0.3s ease",
-//   }}
-//   draggable={false}
-// />
-// </div>

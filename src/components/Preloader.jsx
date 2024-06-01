@@ -46,8 +46,10 @@
 
 import React, { useEffect, useState } from "react";
 import "./Preloader.css"; // Import your CSS for styling
+import { useParams } from "react-router-dom";
 
 const Preloader = () => {
+  const { id } = useParams();
   const [videoEnded, setVideoEnded] = useState(false);
 
   useEffect(() => {
@@ -60,6 +62,7 @@ const Preloader = () => {
     setVideoEnded(true);
   };
 
+  const videoUrl = `${process.env.PUBLIC_URL}/${id}.mp4`;
   return (
     <div>
       {!videoEnded && (
@@ -72,7 +75,8 @@ const Preloader = () => {
             playsInline
           >
             <source
-              src={process.env.PUBLIC_URL + "/IV2.mp4"}
+              src={videoUrl}
+              // src={process.env.PUBLIC_URL + "/2.mp4"}
               //   src="https://www.youtube.com/watch?v=YTh4OuZ1nfA"
               type="video/mp4"
             />

@@ -1,5 +1,6 @@
 import React from "react";
 import Home from "./Home";
+import ChatPage from "./ChatPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -7,7 +8,8 @@ function App() {
     <Router>
       <Routes>
         {/* <Route path="/" element={isAuthenticate ? <Navbar /> : <SignIn />} /> */}
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/:id" element={<Home />} />
+        <Route exact path="/chat" element={<ChatPage />} />
         {/* <Route exact path="/products" element={<ProductsCard />}>
           <Route index element={<ProductsCard />} />
         </Route> */}

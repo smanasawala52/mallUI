@@ -73,7 +73,7 @@ function CouponModal(props) {
     </React.Fragment>
   );
 }
-export default function ShopsCard(props) {
+export default function ChatCard(props) {
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isLoading, setIsLoading] = useState(true); // State to track if the image is loading
@@ -106,7 +106,9 @@ export default function ShopsCard(props) {
     setOpen(false);
     setIsLoading(true);
   };
-  console.log(props.jsonData);
+  console.log(props.jsonData, "on chat page");
+  console.log(props.search, "On chat page");
+  console.log(props.filteredData?.response_json?.shopId[0]);
   return (
     <Box
       sx={{
@@ -140,7 +142,7 @@ export default function ShopsCard(props) {
           }}
         >
           {props.jsonData[0]?.shops?.map((data) => {
-            if (data.displayName.length === 0) {
+            if (data.id != props.filteredData?.response_json?.shopId[0]) {
               return null;
             } else {
               return (
@@ -211,6 +213,7 @@ export default function ShopsCard(props) {
               );
             }
           })}
+
         </Box>
         <Modal
           open={open}
@@ -360,16 +363,7 @@ export default function ShopsCard(props) {
                           }}
                         />
                         <span style={{ marginLeft: "8px" }}>
-                          {selectedItem.shopNumber && selectedItem.floor ? (
-                            <>
-                              {selectedItem.shopNumber} , {selectedItem.floor}
-                            </>
-                          ) : (
-                            <>
-                              {selectedItem.shopNumber} {selectedItem.floor}
-                            </>
-                          )}
-                          {/* {selectedItem.shopNumber},{selectedItem.floor} */}
+                          {selectedItem.shopNumber},{selectedItem.floor}
                         </span>
                       </Box>
                       <div

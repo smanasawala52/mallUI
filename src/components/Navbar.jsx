@@ -18,11 +18,13 @@ import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import Logo from "../components/Images/logo2.png";
 import { styled } from "@mui/material/styles";
+import { Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const API_URL = "https://vivomall-3f02390eda90.herokuapp.com";
 
 const drawerWidth = 240;
-const navItems = ["Home", "About Us", "Contact Us", "Mall Details"];
+const navItems = ["Home", "Chat ", "Contact Us", "Mall Details"];
 
 const CustomTextField = styled(TextField)({
   // "& .MuiInput-input": {
@@ -79,6 +81,16 @@ function Navbar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [searchVisible, setSearchVisible] = React.useState(false); // State for search visibility
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const handleChatClick = () => {
+    navigate("/chat"); // Navigate to the Chat page
+  };
+
+  const handleHomeClick = () => {
+    navigate(`/${id}`); // Navigate to the Chat page
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -95,13 +107,17 @@ function Navbar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem disablePadding sx={{ display: "block" }}>
+          <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemText> Home</ListItemText>
+          </ListItemButton>
+          <ListItemButton
+            sx={{ textAlign: "center" }}
+            onClick={handleChatClick}
+          >
+            <ListItemText primary="Chat" />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
@@ -139,21 +155,30 @@ function Navbar(props) {
           </Typography>
 
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button
-                className="nav-btn"
-                key={item}
-                sx={{
-                  color: "#fff",
-                  "& .MuiButton-label": {
-                    // Target the label of the Button
-                    fontFamily: "serif",
-                  },
-                }}
-              >
-                {item}
-              </Button>
-            ))}
+            <Button
+              className="nav-btn"
+              onClick={handleHomeClick}
+              sx={{
+                color: "#fff",
+                "& .MuiButton-label": {
+                  fontFamily: "serif",
+                },
+              }}
+            >
+              Home
+            </Button>
+            <Button
+              className="nav-btn"
+              onClick={handleChatClick}
+              sx={{
+                color: "#fff",
+                "& .MuiButton-label": {
+                  fontFamily: "serif",
+                },
+              }}
+            >
+              Chat
+            </Button>
           </Box>
           <IconButton
             color="inherit"

@@ -35,6 +35,7 @@ import MapsFloorsButtons from "./MapsFloorsButtons";
 import ShopsButtons from "./ShopsButtons";
 import MallMap from "./MallMap";
 import ImageZoomT1 from "./ImageZoomT1";
+import { useParams } from "react-router-dom";
 
 const API_URL = "https://vivomall-3f02390eda90.herokuapp.com";
 
@@ -58,6 +59,7 @@ function Home() {
   const [isVasImageLoading, setIsVasImageLoading] = useState(true);
   const [focusedButton, setFocusedButton] = useState(null);
   const [selectedTopic, setSelectedTopic] = useState("Maps");
+  const { id } = useParams();
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   // Ensure bgImages is always an array
@@ -135,7 +137,7 @@ function Home() {
     const getjsondata = async () => {
       try {
         const response = await axios.get(
-          `https://vivomall-3f02390eda90.herokuapp.com/mallmodel/1/`
+          `https://vivomall-3f02390eda90.herokuapp.com/mallmodel/${id}/`
         );
         setJsonData(response.data);
         console.log("Before", response.data);
@@ -166,7 +168,7 @@ function Home() {
     //   zIndex: "-100",
     // }}
     >
-      {/* <Preloader /> */}
+      <Preloader />
       {/* <CustomCarousel1 jsonData={jsonData} style={boxStyle} /> */}
       <Box
         // style={backgroundImageStyle}
@@ -309,7 +311,7 @@ function Home() {
                       /> */}
               </Box>
             </div>
-            <div className="mobile-container">
+            {/* <div className="mobile-container">
               <Box
                 sx={{
                   // display: "flex",
@@ -346,57 +348,75 @@ function Home() {
                           </MapsFloorsButtons>
                         )
                     )}
-                    {/* <button
-                            className="map-btn"
-                            key={index}
-                            onClick={() =>
-                              handleButtonClick(API_URL + floor.imgUrl)
-                            }
-                          >
-                            {floor.displayName}
-                          </button> */}
+                  </div>
+                  <div
+                    style={{
+                      border: "5px solid white",
+                      maxHeight: "50%",
+                      transform: "rotate(90deg)",
+                      marginTop: "20%",
+
+                      height: "50%",
+                    }}
+                  >
+                    <ImageZoomT1 src={selectedImage} />
                   </div>
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: "15%",
-                  }}
-                >
-                  {selectedImage && (
-                    <div>
-                      {/* <MallMap imageUrl={selectedImage} /> */}
-                      <ImageZoomT1 src={selectedImage} />
-                    </div>
-                  )}
-                  {/* <img
-                      className="mob-map-image"
-                      src={selectedImage}
-                      alt="map"
-                      style={{
-                        height: "65",
-                        width: "30%",
-                        marginTop: "30px",
-                        // marginLeft: "40px",
-                        borderRadius: "30px",
-                      }}
-                    /> */}
-
-                  {/* <img
-                    className="mob-map-image"
-                    src={selectedImage}
-                    alt="map"
-                    style={{
-                      height: "65",
-                      width: "80%",
-                      marginTop: "30px",
-                      // marginLeft: "40px",
-                      borderRadius: "30px",
-                    }}
-                  /> */}
-                </div>
               </Box>
+            </div> */}
+            <div className="Mobile-container-vas">
+              {jsonData[0]?.images?.map(
+                (vas, index) =>
+                  vas.imgType === "VAS" &&
+                  vas.deviceType === "MOBILE" && (
+                    <>
+                      <h1>
+                        <div
+                          id="maps-btn"
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            gap: "5%",
+                          }}
+                        >
+                          {jsonData[0]?.images?.map(
+                            (floor, index) =>
+                              floor.imgType === "FLOOR" && (
+                                <MapsFloorsButtons
+                                  isSelected={
+                                    focusedButton === floor.displayName
+                                  }
+                                  onSelect={() =>
+                                    handleMapImageClick(
+                                      API_URL + floor.imgUrl,
+                                      floor.displayName
+                                    )
+                                  }
+                                >
+                                  {" "}
+                                  {floor.displayName}
+                                </MapsFloorsButtons>
+                              )
+                          )}
+                        </div>
+                      </h1>
+                      <div
+                        style={{ transform: "rotate(90deg)", marginTop: "20%" }}
+                      >
+                        {/* <img
+                        style={{
+                          width: "80%",
+                          height: "60vh",
+                          marginTop: "20px",
+                          borderRadius: "30px",
+                        }}
+                        src={API_URL + vas.imgUrl}
+                      /> */}
+                        <ImageZoomT1 src={selectedImage} />
+                      </div>
+                    </>
+                  )
+              )}
             </div>
           </div>
         )}
@@ -612,7 +632,7 @@ function Home() {
 
                       <img
                         style={{
-                          width: "80%",
+                          width: "90%",
                           height: "60vh",
                           marginTop: "20px",
                           borderRadius: "30px",
@@ -906,6 +926,18 @@ function Home() {
           )
         )}
       </div> */}
+        {/* <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  {selectedImage && (
+                    <div>
+                      <ImageZoomT1 src={selectedImage} />
+                    </div>
+                  )}
+                </div> */}
       </Box>
     </div>
   );
